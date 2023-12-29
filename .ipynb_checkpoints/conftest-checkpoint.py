@@ -11,12 +11,13 @@ def load_config():
         config = json.load(config_file)
         return config
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="class")
 def browser(request):
     with webdriver.Chrome() as browser:
-        browser.implicitly_wait(5) # искать каждый элемент в течение 5 секунд
+        browser.implicitly_wait(5) # искать каждый элемент в течение 'n' секунд
         yield browser
 
+# Ожидаем пока какой-либо элемент станет видимым 'n' секунд
 @pytest.fixture(scope="function")
 def wait(browser):
     return WebDriverWait(browser, 10)
